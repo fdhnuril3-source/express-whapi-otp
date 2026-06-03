@@ -1,0 +1,58 @@
+<%- include ('../partials/_head') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">Tambah Produk Baru</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/produk/store" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nama Produk</label>
+                            <input type="text" name="nama_produk" class="form-control" placeholder="Contoh: Laptop Gaming" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Harga</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" name="harga" class="form-control" placeholder="Contoh: 5000000" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Kategori</label>
+                            <select name="id_kategori" class="form-select" required>
+                                <option value="" selected disabled>-- Pilih Kategori --</option>
+                                <% if (data_kategori.length > 0) { %>
+                                    <% for(var i = 0; i < data_kategori.length; i++) { %>
+                                        <option value="<%= data_kategori[i].id_kategori %>">
+                                            <%= data_kategori[i].nama_kategori %>
+                                        <% } %>
+                                    </option>
+                                <% } else { %>
+                                    <option value="" disabled>Kategori Kosong (Isi dulu di menu Kategori)</option>
+                                <% } %>
+                            </select>
+                            <small class="text-muted">Pilih kategori yang sesuai agar tidak error.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Gambar Produk</label>
+                            <input type="file" name="gambar_produk" class="form-control" required>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-success fw-bold">Simpan Produk</button>
+                            <a href="/produk" class="btn btn-light border text-secondary">Kembali</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../partials/_foot') %>

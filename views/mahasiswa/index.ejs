@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Data Mahasiswa</h2>
+    <a href="/mahasiswa/create" class="btn btn-sm btn-primary mb-3">Tambah Data</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>NRP</th>
+                <th>Nama</th>
+                <th>Jenis Kelamin</th>
+                <th>Foto</th>
+                <th class="text-center">Aksi</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <% if (mahasiswa.length > 0) { %>
+                <% for(var i = 0; i < mahasiswa.length; i++) { %>
+                <tr>
+                    <td><%= i + 1 %></td>
+                    <td><%= mahasiswa[i].nrp %></td>
+                    <td><%= mahasiswa[i].nama %></td>
+                    <td><%= mahasiswa[i].jenis_kelamin %></td>
+                    <td>
+                        <img src="/static/mahasiswa/<%= mahasiswa[i].foto_mahasiswa %>" width="50">
+                    </td>
+                    <td class="text-center">
+                        <a href="/mahasiswa/edit/<%= mahasiswa[i].id_mahasiswa %>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="/mahasiswa/delete/<%= mahasiswa[i].id_mahasiswa %>" 
+                           class="btn btn-sm btn-danger" 
+                           onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                    </td>
+                </tr>
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="6" class="text-center">Data Kosong</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

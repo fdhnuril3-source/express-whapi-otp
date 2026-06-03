@@ -1,0 +1,77 @@
+<%- include ('../partials/_head') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            
+            <%- include ('../partials/_message') %>
+            
+            <% if (messages.error) { %>
+            <div class="alert alert-danger">
+                <%- messages.error %>
+            </div>
+            <% } %>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0 fw-bold">DAFTAR PRODUK</h5>
+                    <a href="/produk/create" class="btn btn-sm btn-primary">
+                        <i class="bi bi-plus"></i> Tambah data
+                    </a>
+                </div>
+                
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="ps-3">No</th>
+                                    <th>Gambar Produk</th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Kategori</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (data.length > 0) { %>
+                                    <% for(var i = 0; i < data.length; i++) { %>
+                                    <tr>
+                                        <td class="ps-3"><%= (i+1) %></td>
+                                        <td>
+                                            <img src="/images/<%= data[i].gambar_produk %>" 
+                                                 alt="<%= data[i].gambar_produk %>" 
+                                                 style="width: 80px; height: auto; border-radius: 5px;" 
+                                                 class="border">
+                                        </td>
+                                        <td class="fw-bold"><%= data[i].nama_produk %></td>
+                                        <td>Rp<%= (data[i].harga) ? data[i].harga.toLocaleString('id-ID') : '0' %></td>
+                                        <td>
+                                            <span class="badge bg-secondary">ID: <%= data[i].id_kategori %></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <a href="/produk/edit/<%= data[i].id_produk %>" class="btn btn-sm btn-warning">Edit</a>
+                                                <a href="/produk/delete/<%= data[i].id_produk %>" 
+                                                   class="btn btn-sm btn-danger"
+                                                   onclick="return confirm('Yakin ingin menghapus?')">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">Data Kosong</td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<%- include ('../partials/_foot') %>

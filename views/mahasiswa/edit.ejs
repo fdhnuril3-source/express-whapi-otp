@@ -1,0 +1,52 @@
+<%- include ('../partials/_head') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h5 class="mb-0 fw-bold">EDIT DATA MAHASISWA</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/mahasiswa/update/<%= id %>" method="POST" enctype="multipart/form-data">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">NRP</label>
+                            <input type="text" name="nrp" value="<%= nrp %>" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nama</label>
+                            <input type="text" name="nama" value="<%= nama %>" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Jenis Kelamin</label>
+                            <select name="jenis_kelamin" class="form-select" required>
+                                <option value="Laki-laki" <%= jenis_kelamin == 'Laki-laki' ? 'selected' : '' %>>Laki-laki</option>
+                                <option value="Perempuan" <%= jenis_kelamin == 'Perempuan' ? 'selected' : '' %>>Perempuan</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Foto Saat Ini</label>
+                            <div class="mb-2">
+                                <img src="/static/mahasiswa/<%= foto %>" width="100" class="img-thumbnail shadow-sm">
+                            </div>
+                            <label class="form-label fw-bold text-muted">Ganti Foto (Kosongkan jika tidak ingin ganti)</label>
+                            <input type="file" name="foto_mahasiswa" class="form-control">
+                        </div>
+
+                        <div class="mt-4 border-top pt-3">
+                            <button type="submit" class="btn btn-warning px-4 fw-bold">Update Data</button>
+                            <a href="/mahasiswa" class="btn btn-light border px-4">Batal</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../partials/_foot') %>
