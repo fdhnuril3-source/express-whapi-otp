@@ -1,8 +1,12 @@
 var express = require('express');
 const Model_kategori = require('../../model/Model_kategori');
+const limiter = require('../../config/middleware/ratelimiter');
+// 1. Mengimpor middleware rate-limiter (naik 2 folder ke config/middleware)
+const { encryptData, decryptData } = require('../../config/crypto');
 var router = express.Router();
 
-router.get('/', async function(req, res, next){
+// 2. Diletakkan di parameter kedua router.get untuk mengaktifkan rate limiter
+router.get('/', limiter, async function(req, res, next){
     let rows = await Model_kategori.getAll();
         return res.status(200).json({
             status: true,
@@ -20,7 +24,7 @@ router.get('/create', function(req, res, next){
 router.get('/data/(:id)', async function(req, res, next){
     let id = req.params.id;
     let rows =  await Model_kategori.getId(id);
-    returnres.status(200).json({
+    return res.status(200).json({
                 id: rows[0].id_kategori,
                 nama_kategori: rows[0].nama_kategori
             });
@@ -59,6 +63,7 @@ router.post('/store', function(req, res, next) {
         });
     }
 });
+
 router.post('/update/:id', async function(req, res) {
     try {
         let id = req.params.id;
@@ -91,7 +96,23 @@ router.get('/delete/(:id)', async function(req, res){
             message: 'Data berhasil dihapus'
         });
 });
-    
+
+router.get('/besar', function(req, res, next) {
+    let banyakData = [];
+    for (let i = 1; i <= 10000; i++) {
+        banyakData.push({
+            id: i,
+            nama: `Data ke-${i}`,
+            keterangan: `Deskripsi data besar ke-${i}`
+        });
+    }
+    return res.status(200).json({
+        status: true,
+        jumlah_data: banyakData.length,
+        data: banyakData
+    });
+});
+
 
 
 module.exports = router;

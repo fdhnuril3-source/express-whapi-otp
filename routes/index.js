@@ -1,7 +1,11 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router(); // (Atau menggunakan const app = express(); tergantung struktur project Anda)
 const bcrypt = require('bcryptjs');
 const Model_users = require('../model/Model_users');
+
+// --- TAMBAHKAN PEMANGGIL RUTE WHATSAPP DI SINI ---
+const whatsappRoutes = require('./api/whatsapp'); // Sesuaikan path jika letaknya berbeda
+// ------------------------------------------------
 
 router.get('/', function(req, res, next) {
   res.render('index', { 
@@ -59,5 +63,9 @@ router.post('/log', async (req, res, next) => {
     res.redirect('/login');
   }
 });
+
+// --- DAFTARKAN RUTE WHATSAPP KE ROUTER UTAMA ---
+router.use('/api', whatsappRoutes);
+// ----------------------------------------------
 
 module.exports = router;
